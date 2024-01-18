@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: MIT 
 pragma solidity ^0.8.0;
 
 import "hardhat/console.sol";
@@ -62,10 +63,10 @@ contract Token is IERC20 {
 
     function transferFrom(address owner, address buyer, uint256 numTokens) public override returns (bool) {
         require(numTokens <= balances[owner], "Insufficient balance");
-        require(numTokens <= allowed[owner][msg.sender], "ERC20: transfer amount exceeds allowance");
+        require(numTokens <= allowed[owner][buyer], "ERC20: transfer amount exceeds allowance");
 
         balances[owner] = balances[owner].sub(numTokens);
-        allowed[owner][msg.sender] = allowed[owner][msg.sender].sub(numTokens);
+        allowed[owner][msg.sender] = allowed[owner][buyer].sub(numTokens);
         balances[buyer] = balances[buyer].add(numTokens);
         emit Transfer(owner, buyer, numTokens);
         return true;

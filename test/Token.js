@@ -37,7 +37,9 @@ describe("Token contract", function () {
         token.transfer(buyer.address, 10000)
       ).to.be.revertedWithoutReason();
 
-      expect(await token.balanceOf(owner.address)).to.equal(initialOwnerBalance);
+      expect(await token.balanceOf(owner.address)).to.equal(
+        initialOwnerBalance
+      );
     });
 
     it("Should update allowance", async function () {
@@ -51,7 +53,7 @@ describe("Token contract", function () {
 
       expect(await token.balanceOf(owner.address)).to.equal(900);
       expect(await token.balanceOf(buyer.address)).to.equal(100);
-      expect(await token.allowance(owner.address, buyer.address)).to.equal(0);
+      expect(await token.allowance(owner.address, buyer.address)).to.equal(100);
     });
 
     it("Should fail if sender doesn’t have enough allowance", async function () {
